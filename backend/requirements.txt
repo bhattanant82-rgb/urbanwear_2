@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pymongo[srv]
+bcrypt
+pyjwt
+python-dotenv
+cloudinary
+python-multipart
+reportlab
+requests
+email-validator

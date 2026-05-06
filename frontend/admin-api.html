@@ -1,0 +1,84 @@
+/**
+ * Admin API Proxy
+ * Handles AJAX requests from the admin dashboard and orders page.
+ * Proxies requests to the Node.js backend.
+ */
+
+session_start();
+require_once 'api-helper.php';
+
+// Ensure Admin Access
+requireAdmin();
+
+header('Content-Type: application/json');
+
+$token = getAuthToken();
+$response = ['success' => false, 'message' => 'Invalid request'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+
+    try {
+        switch ($action) {
+            case 'add_product':
+                $product_data = [
+                    'title' => $_POST['title'] ?? '',
+                    'price' => (float)($_POST['price'] ?? 0),
+                    'stock' => (int)($_POST['stock'] ?? 0),
+                    'category' => $_POST['category'] ?? '',
+                    'description' => $_POST['description'] ?? '',
+                    'images' => isset($_POST['images']) ? (is_array($_POST['images']) ? $_POST['images'] : [$_POST['images']]) : []
+                ];
+                
+                $apiRes = $API->post('/api/v1/admin/products', $product_data, $token);
+                $response = $apiRes;
+                break;
+
+            case 'update_product':
+                $product_id = $_POST['product_id'] ?? '';
+                if (!$product_id) throw new Exception('Missing product ID');
+
+                $product_data = [
+                    'title'       => $_POST['title'] !== '' ? $_POST['title'] : null,
+                    'price'       => isset($_POST['price']) && $_POST['price'] !== '' ? (float)$_POST['price'] : null,
+                    'stock'       => isset($_POST['stock']) && $_POST['stock'] !== '' ? (int)$_POST['stock'] : null,
+                    'category'    => $_POST['category'] !== '' ? $_POST['category'] : null,
+                    'description' => $_POST['description'] !== '' ? $_POST['description'] : null,
+                    'images'      => isset($_POST['images']) ? (is_array($_POST['images']) ? $_POST['images'] : [$_POST['images']]) : null
+                ];
+                
+                // Remove null values so we only send provided fields
+                $product_data = array_filter($product_data, function($val) { return $val !== null; });
+
+                $apiRes = $API->put('/api/v1/admin/products/' . $product_id, $product_data, $token);
+                $response = $apiRes;
+                break;
+
+            case 'delete_product':
+                $product_id = $_POST['product_id'] ?? '';
+                if (!$product_id) throw new Exception('Missing product ID');
+
+                $apiRes = $API->delete('/api/v1/admin/products/' . $product_id, $token);
+                $response = $apiRes;
+                break;
+
+            case 'update_order_status':
+                $order_id = $_POST['order_id'] ?? '';
+                $status = $_POST['status'] ?? '';
+                
+                if (!$order_id || !$status) throw new Exception('Missing order ID or status');
+
+                $apiRes = $API->put('/api/v1/admin/orders/' . $order_id . '/status', ['orderStatus' => $status], $token);
+                $response = $apiRes;
+                break;
+
+
+            default:
+                throw new Exception("Unknown action: $action");
+        }
+    } catch (Exception $e) {
+        $response = ['success' => false, 'message' => $e->getMessage()];
+    }
+}
+
+echo json_encode($response);

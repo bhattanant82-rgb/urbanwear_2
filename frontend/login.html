@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | UrbanWear</title>
+    <link rel="stylesheet" href="css/premium-auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <a href="index.html" class="home-link"><i class="fa-solid fa-arrow-left"></i> Home</a>
+
+    <div class="auth-container">
+        <!-- Image Side -->
+        <div class="auth-image-side">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1920&auto=format&fit=crop" alt="Fashion Model">
+            <div class="auth-overlay">
+                <h2>URBANWEAR</h2>
+                <p>Welcome back to the new standard.</p>
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="auth-form-side">
+            <div class="form-wrapper">
+                <h1 class="brand-title">Sign In</h1>
+                <p class="brand-subtitle">Access your personal wardrobe.</p>
+
+                
+                    <div class="error" id="login-error" style="display:none;"></div>
+                
+
+                
+                    <div class="success" id="login-success" style="display:none;"></div>
+                
+
+                <div class="connection-status">
+                    <small id="backend-status">● Checking...</small>
+                </div>
+
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" value="" required placeholder="Type your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required placeholder="Type your password">
+                    </div>
+
+                    <button type="submit" class="btn-auth">Sign In</button>
+                </form>
+
+                <div class="auth-links">
+                    <p>New here? <a href="signup.html">Create an Account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script src="js/api.js"></script>
+<script>
+// Check backend status
+(async function() {
+  const el = document.getElementById('backend-status');
+  try {
+    const r = await window.API.get('/health');
+    if(r && el) el.innerHTML = '<span style="color:green">● System Operational</span>';
+  } catch(e) { if(el) el.innerHTML = '<span style="color:red">● System Unreachable</span>'; }
+})();
+
+// Redirect if already logged in
+if (window.API.isLoggedIn()) {
+  window.location.href = window.API.isAdmin() ? 'admin-dashboard.html' : 'user-dashboard.html';
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const errEl = document.getElementById('login-error');
+  const btn = e.target.querySelector('button[type="submit"]');
+  
+  if (!email || !password) { showError('Email and password are required'); return; }
+  
+  btn.disabled = true; btn.textContent = 'Signing in...';
+  const r = await window.API.post('/api/v1/auth/login', { email, password });
+  btn.disabled = false; btn.textContent = 'Sign In';
+  
+  if (r.success && r.data) {
+    const token = r.data.token || r.token;
+    const user = r.data.user || r.user;
+    if (token && user) {
+      window.API.setAuthToken(token, user);
+      window.location.href = (user.role && user.role.toLowerCase() === 'admin') ? 'admin-dashboard.html' : 'user-dashboard.html';
+    } else { showError('Invalid response from server.'); }
+  } else { showError(r.message || 'Login failed. Please check your credentials.'); }
+}
+function showError(msg) {
+  const el = document.getElementById('login-error');
+  if(el) { el.textContent = msg; el.style.display = 'block'; }
+}
+</script>
+</body>
+</html>

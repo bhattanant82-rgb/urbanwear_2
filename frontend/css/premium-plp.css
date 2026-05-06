@@ -1,0 +1,555 @@
+/* 
+ * URBANWEAR PREMIUM PLP STYLESHEET 
+ * For Men, Women, Kids Category Pages
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap');
+
+:root {
+    --text-main: #111111;
+    --text-muted: #666666;
+    --text-light: #999999;
+    --bg-body: #ffffff;
+    --bg-section: #f9f9f9;
+    --bg-card: #ffffff;
+    --accent: #000000;
+
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Poppins', sans-serif;
+
+    --container-width: 1400px;
+    --gap-md: 2rem;
+
+    --transition-slow: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    --transition-fast: all 0.3s ease;
+}
+
+/* RESET */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-fast);
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* NAVBAR (Consistent with Home) */
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: var(--transition-fast);
+}
+
+.brand a {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--accent);
+    text-transform: uppercase;
+}
+
+.links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.links a {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.links a:hover,
+.links a.active {
+    color: var(--accent);
+}
+
+.links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: currentColor;
+    transition: width 0.3s ease;
+}
+
+.links a:hover::after,
+.links a.active::after {
+    width: 100%;
+}
+
+/* HERO SECTION - Typography Focused */
+.plp-hero {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 80px 20px 40px;
+    text-align: center;
+    border-bottom: 1px solid transparent;
+    /* Placeholder */
+}
+
+.plp-hero h1 {
+    font-size: 4rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+    animation: fadeUp 0.8s ease forwards;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.plp-hero p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: var(--font-heading);
+    animation: fadeUp 0.8s ease forwards 0.2s;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+/* CATALOG GRID */
+.catalog {
+    max-width: var(--container-width);
+    margin: 40px auto 100px;
+    padding: 0 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 40px 30px;
+}
+
+.empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 100px 0;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+}
+
+/* PRODUCT CARD */
+.product-card {
+    background: var(--bg-card);
+    position: relative;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+    /* Stagger dealt with via N-child if possible, or just base animation */
+}
+
+/* Simple stagger loop for first 12 items */
+.product-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.product-card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.product-card:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.product-card:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.card-media {
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 135%;
+    /* Tall fashion aspect ratio */
+    background: #f4f4f4;
+}
+
+.card-media img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+}
+
+.product-card:hover .card-media img {
+    transform: scale(1.08);
+    /* Slow elegant zoom */
+}
+
+/* Badge */
+.badge-new {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--bg-body);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    z-index: 2;
+    letter-spacing: 1px;
+}
+
+/* Hover Reveal Actions */
+.card-actions {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: var(--transition-fast);
+    z-index: 2;
+}
+
+.product-card:hover .card-actions {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.add-to-cart-btn {
+    width: 100%;
+    padding: 14px 0;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background: #333;
+}
+
+.add-to-cart-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+/* Product Info */
+.card-meta {
+    padding: 20px 0 10px;
+    text-align: left;
+}
+
+.product-title {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-price {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   ANALYTICS SECTION
+   ============================================ */
+
+.analytics-section {
+    max-width: var(--container-width);
+    margin: 0 auto 40px;
+    padding: 0 40px;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Filter Sidebar */
+.filter-sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.filter-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: var(--bg-card);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-btn i {
+    font-size: 1rem;
+    color: var(--text-muted);
+    transition: var(--transition-fast);
+}
+
+.filter-btn:hover {
+    border-color: var(--accent);
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.filter-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+}
+
+.filter-btn.active i {
+    color: #ffffff;
+}
+
+/* Chart Container */
+.chart-container {
+    flex: 1;
+    max-width: 500px;
+    background: var(--bg-card);
+    padding: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+}
+
+#donutChart {
+    max-width: 250px;
+    max-height: 250px;
+}
+
+/* Chart Legend */
+.chart-legend {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+}
+
+.legend-color {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.legend-label {
+    flex: 1;
+    color: var(--text-main);
+    font-weight: 500;
+}
+
+.legend-value {
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Loading Spinner */
+.analytics-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.analytics-spinner i {
+    font-size: 1.2rem;
+}
+
+/* Insufficient Data Message */
+.insufficient-data-message,
+.error-message {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-muted);
+}
+
+.insufficient-data-message i,
+.error-message i {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    opacity: 0.3;
+}
+
+.insufficient-data-message p,
+.error-message p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--text-main);
+}
+
+.insufficient-data-message small {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.error-message {
+    color: #e74c3c;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .plp-hero h1 {
+        font-size: 3rem;
+    }
+
+    .site-nav {
+        padding: 15px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    /* Analytics Section - Mobile */
+    .analytics-section {
+        flex-direction: column;
+        padding: 0 20px;
+        margin-bottom: 30px;
+    }
+
+    .filter-sidebar {
+        width: 100%;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 10px;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .filter-btn {
+        white-space: nowrap;
+        padding: 12px 18px;
+        font-size: 0.85rem;
+    }
+
+    .chart-container {
+        max-width: 100%;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    #donutChart {
+        max-width: 200px;
+        max-height: 200px;
+    }
+
+    .chart-legend {
+        width: 100%;
+    }
+
+    .links {
+        display: none;
+        /* In a real app we'd have a hamburger menu, but limiting scope */
+    }
+
+    /* Alternative for links on mobile for this specific task: show minimal or scrolling */
+    .links {
+        display: flex;
+        gap: 15px;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        -webkit-overflow-scrolling: touch;
+        width: 100%;
+        white-space: nowrap;
+    }
+
+    .site-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+
+    .brand {
+        margin-bottom: 5px;
+    }
+
+    .plp-hero h1 {
+        font-size: 2.5rem;
+    }
+}

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us | UrbanWear</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --clay:      #c8b49a;
+      --sand:      #e8ddd0;
+      --parchment: #f5efe6;
+      --cream:     #faf7f2;
+      --bark:      #5c4a38;
+      --moss:      #6b7c5e;
+      --rust:      #b5522a;
+      --ink:       #2c2318;
+      --warm-white:#fffdf9;
+      --glass-bg:  rgba(250,247,242,0.92);
+      --glass-border: rgba(200,180,154,0.35);
+      --transition: all 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar */
+    .navbar {
+      background: var(--glass-bg);
+      border-bottom: 1px solid var(--glass-border);
+      padding: 22px 60px;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 1000;
+    }
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.9rem; font-weight: 600; letter-spacing: 6px;
+      text-transform: uppercase; color: var(--bark);
+    }
+    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-links a {
+      font-size: 0.75rem; font-weight: 500; text-transform: uppercase;
+      letter-spacing: 0.18em; color: var(--bark); transition: var(--transition);
+    }
+    .nav-links a:hover { color: var(--rust); }
+
+    /* Page Header */
+    .page-header {
+      padding: 80px 40px; text-align: center;
+      background: var(--parchment);
+      border-bottom: 1px solid var(--glass-border);
+    }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.5rem; font-weight: 300; color: var(--bark);
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      font-size: 0.9rem; color: var(--clay);
+      letter-spacing: 0.08em; text-transform: uppercase;
+    }
+
+    /* Container layout */
+    .contact-wrapper {
+      max-width: 1200px; margin: 80px auto 120px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; padding: 0 40px;
+    }
+
+    /* Form Side */
+    .contact-form-side h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 400; color: var(--bark);
+      margin-bottom: 30px;
+    }
+    .form-group { margin-bottom: 24px; }
+    .form-group label {
+      display: block; font-size: 0.7rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--bark); margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%; padding: 14px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; color: var(--ink);
+      background: var(--warm-white);
+      border: 1px solid var(--glass-border);
+      outline: none; transition: var(--transition);
+      resize: vertical;
+    }
+    .form-control:focus {
+      border-color: var(--bark); box-shadow: 0 0 0 3px rgba(92,74,56,0.05);
+    }
+    
+    .btn-submit {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 16px 40px;
+      background: var(--bark); color: var(--warm-white);
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.25em; border: none; cursor: pointer;
+      transition: var(--transition); width: 100%;
+    }
+    .btn-submit:hover { background: var(--rust); }
+    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+
+    /* Status Messages */
+    .status-msg {
+      padding: 16px; margin-bottom: 24px;
+      font-size: 0.85rem; font-weight: 500; display: none;
+      border: 1px solid; border-radius: 4px;
+    }
+    .status-msg.success {
+      display: block; background: #dcfce7; color: #16a34a; border-color: #bbf7d0;
+    }
+    .status-msg.error {
+      display: block; background: #fee2e2; color: #dc2626; border-color: #fecaca;
+    }
+
+    /* Info Side */
+    .contact-info-side {
+      background: var(--parchment);
+      padding: 50px 40px;
+      border: 1px solid var(--glass-border);
+    }
+    .info-block { margin-bottom: 40px; }
+    .info-block i {
+      font-size: 1.4rem; color: var(--rust);
+      margin-bottom: 16px;
+    }
+    .info-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 600; color: var(--bark);
+      margin-bottom: 8px;
+    }
+    .info-block p {
+      font-size: 0.95rem; color: var(--ink); font-weight: 300; line-height: 1.6;
+    }
+    .info-block p a { color: var(--rust); transition: var(--transition); }
+    .info-block p a:hover { color: var(--bark); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .contact-wrapper { grid-template-columns: 1fr; gap: 40px; }
+      .navbar { padding: 18px 24px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="index.html" class="logo">URBANWEAR</a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="men.html">Men</a>
+      <a href="women.html">Women</a>
+      <a href="kids.html">Kids</a>
+      
+        <a href="user-dashboard.html">Dashboard</a>
+      
+        <a href="login.html">Login</a>
+      
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <header class="page-header">
+    <h1>Contact Us</h1>
+    <p>We're here to help.</p>
+  </header>
+
+  <!-- Main Content -->
+  <main class="contact-wrapper">
+    
+    <!-- Left: Form -->
+    <div class="contact-form-side">
+      <h2>Send a Message</h2>
+      
+      <div id="statusMessage" class="status-msg"></div>
+
+      <form id="contactForm">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" class="form-control" required placeholder="John Doe">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" class="form-control" required placeholder="john@example.com">
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" class="form-control" placeholder="+91 xxxxx xxxxx">
+        </div>
+        
+        <div class="form-group">
+          <label for="subject">Subject *</label>
+          <select id="subject" name="subject" class="form-control" required>
+            <option value="" disabled selected>Select a topic</option>
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Order Issue">Order Issue</option>
+            <option value="Support">Support</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" class="form-control" rows="5" required placeholder="How can we assist you?"></textarea>
+        </div>
+        
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+
+    <!-- Right: Info -->
+    <div class="contact-info-side">
+      <div class="info-block">
+        <i class="fa-solid fa-location-dot"></i>
+        <h3>Headquarters</h3>
+        <p>123 Urban Mall, Connaught Place<br>bharuch link road<br>India</p>
+      </div>
+
+      <div class="info-block">
+        <i class="fa-solid fa-envelope"></i>
+        <h3>Email Us</h3>
+        <p>General: <a href="mailto:hello@urbanwear.com">hello@urbanwear.com</a><br>
+           Support: <a href="mailto:support@urbanwear.com">support@urbanwear.com</a></p>
+      </div>
+
+      <div class="info-block">
+        <i class="fa-solid fa-phone"></i>
+        <h3>Call Us</h3>
+        <p><a href="tel:+919876543210">+91 98765 43210</a><br>
+        Mon-Fri: 9 AM to 6 PM IST</p>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const statusMsg = document.getElementById('statusMessage');
+      
+      // Update ui
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Sending...</span> <i class="fa-solid fa-spinner fa-spin"></i>';
+      statusMsg.className = 'status-msg'; // hide
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      };
+
+      const API_ROOT = window.API ? window.API.baseUrl : 'http://127.0.0.1:5000';
+      try {
+        const response = await fetch(API_ROOT + '/api/v1/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+          statusMsg.textContent = data.message || "Your message has been sent successfully";
+          statusMsg.className = 'status-msg success';
+          document.getElementById('contactForm').reset();
+        } else {
+          statusMsg.textContent = data.message || "Failed to send message";
+          statusMsg.className = 'status-msg error';
+        }
+      } catch (err) {
+        statusMsg.textContent = "An error occurred. Please try again later.";
+        statusMsg.className = 'status-msg error';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>';
+        
+        // Hide success message after 5 seconds
+        if (statusMsg.classList.contains('success')) {
+            setTimeout(() => {
+                statusMsg.className = 'status-msg';
+            }, 5000);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

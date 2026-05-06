@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Home Banner Manager — URBANWEAR</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* Reusing core styles for consistency */
+:root {
+  --sw: 220px;
+  --s0: #0c0c0c;
+  --st: rgba(255,255,255,0.48);
+  --sa: rgba(255,255,255,0.90);
+  --sb: rgba(255,255,255,0.07);
+  --bg: #f6f5f3;
+  --surface: #ffffff;
+  --border: #e8e6e1;
+  --t1: #18181b;
+  --t2: #6b6966;
+  --r: 7px;
+  --grn: #16a34a;
+  --red: #dc2626;
+  --blu: #2563eb;
+}
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--t1); display: flex; margin: 0; }
+.sb { width: var(--sw); background: var(--s0); position: fixed; top: 0; bottom: 0; border-right: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; }
+.sb-brand { padding: 22px 18px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+.sb-brand-logo { font-size: 0.78rem; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: #fff; }
+.sb-nav { padding: 18px 10px; flex: 1; }
+.sb-item { display: flex; align-items: center; gap: 9px; padding: 10px; font-size: 0.77rem; color: var(--st); transition: 0.2s; border-radius: 5px; text-decoration: none; margin-bottom: 1px; }
+.sb-item:hover { background: var(--sb); color: #fff; }
+.sb-item.on { background: rgba(255,255,255,0.09); color: var(--sa); font-weight: 600; }
+.sb-group-label { font-size: 0.56rem; font-weight: 600; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,255,255,0.18); padding: 0 8px; margin-bottom: 8px; display: block; }
+
+.main { margin-left: var(--sw); flex: 1; min-height: 100vh; padding: 28px; }
+.ph h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+.ph p { font-size: 0.85rem; color: var(--t2); margin-bottom: 24px; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.fld { margin-bottom: 20px; }
+.fld label { display: block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--t2); margin-bottom: 8px; }
+.fld input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: var(--r); font-size: 0.9rem; background: #fff; }
+.fld input:focus { border-color: var(--t1); outline: none; }
+
+.media-preview { margin-top: 10px; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; max-width: 400px; max-height: 500px; background: #000; position: relative; }
+.media-preview img, .media-preview video { width: 100%; height: auto; max-height: 500px; object-fit: contain; display: block; }
+.btn-delete { position: absolute; top: 10px; right: 10px; background: var(--red); color: #fff; border: none; padding: 5px 10px; border-radius: 4px; font-size: 0.7rem; cursor: pointer; }
+
+.btn { padding: 12px 24px; border-radius: var(--r); font-weight: 600; cursor: pointer; border: none; font-size: 0.85rem; transition: 0.2s; }
+.btn-primary { background: var(--t1); color: #fff; }
+.btn-primary:hover { opacity: 0.9; }
+
+.alert { padding: 14px; border-radius: var(--r); margin-bottom: 20px; font-size: 0.85rem; border: 1px solid transparent; }
+.alert-success { background: #dcfce7; color: #166534; border-color: #bbf7d0; }
+.alert-error { background: #fee2e2; color: #991b1b; border-color: #fecaca; }
+
+.switch { position: relative; display: inline-block; width: 44px; height: 22px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 22px; }
+.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: var(--t1); }
+input:checked + .slider:before { transform: translateX(22px); }
+</style>
+</head>
+<body>
+
+<aside class="sb">
+  <div class="sb-brand">
+    <div class="sb-brand-logo">Urbanwear</div>
+  </div>
+  <nav class="sb-nav">
+    <span class="sb-group-label">Admin Menu</span>
+    <a href="admin-dashboard.html" class="sb-item"><i class="fa-solid fa-grid-2"></i> Dashboard</a>
+    <a href="admin-home-banner.html" class="sb-item on"><i class="fa-solid fa-paintbrush"></i> Home Banner</a>
+    <a href="index.html" class="sb-item"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Site</a>
+  </nav>
+</aside>
+
+<main class="main">
+  <div class="ph">
+    <h1>Home Banner Manager</h1>
+    <p>Manage the hero section content, image, and video background.</p>
+  </div>
+
+  
+    <div class="alert alert-success"></div>
+  
+  
+    <div class="alert alert-error"></div>
+  
+
+  <div class="card">
+    <form action="" method="POST" enctype="multipart/form-data">
+      <input type="hidden" name="action" value="update_banner">
+      
+      <div class="fld">
+        <label>Banner Title</label>
+        <input type="text" name="title" value="" placeholder="e.g. Wear the Earth. Own the Street.">
+      </div>
+
+      <div class="fld">
+        <label>Banner Subtitle / Eyebrow</label>
+        <input type="text" name="subtitle" value="" placeholder="e.g. Essentials 2026">
+      </div>
+
+      <div class="fld">
+        <label>Button Text</label>
+        <input type="text" name="button_text" value="" placeholder="e.g. Explore Collection">
+      </div>
+
+      <div class="fld">
+        <label>Button Link</label>
+        <input type="text" name="button_link" value="" placeholder="e.g. #drop or /men.php">
+      </div>
+
+      <div class="fld" style="display: flex; align-items: center; gap: 12px; margin-top: -5px;">
+        <label class="switch">
+          <input type="checkbox" name="button_enabled" >
+          <span class="slider"></span>
+        </label>
+        <span style="font-size: 0.8rem; font-weight: 600; color: var(--t2);">Enable Button</span>
+      </div>
+
+      <div class="fld">
+        <label>Banner Image (Fallback/Default)</label>
+        <input type="file" name="banner_image" accept="image/*">
+        
+          <div class="media-preview">
+            
+            <img src="" alt="Current Banner Image">
+          </div>
+        
+      </div>
+
+      <div class="fld">
+        <label>Banner Video (Plays instead of image if exists)</label>
+        <input type="file" name="banner_video" accept="video/mp4,video/webm">
+        <p style="font-size: 0.7rem; color: #666; margin-top: 5px;">Max size: 20MB. Formats: MP4, WebM.</p>
+        
+          <div class="media-preview">
+            
+            <video autoplay muted loop playsinline>
+              <source src="" type="video/mp4">
+            </video>
+            <button type="button" class="btn-delete" onclick="if(confirm('Remove this video?')) document.getElementById('deleteVideoForm').submit();">
+              <i class="fa-solid fa-trash"></i> Remove Video
+            </button>
+          </div>
+        
+      </div>
+
+      <div style="margin-top: 32px;">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+    
+    <form id="deleteVideoForm" method="POST" style="display:none;">
+      <input type="hidden" name="action" value="delete_video">
+    </form>
+  </div>
+</main>
+
+</body>
+</html>

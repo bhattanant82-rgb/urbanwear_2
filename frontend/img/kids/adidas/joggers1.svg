@@ -1,0 +1,27 @@
+<svg width="400" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <!-- Joggers silhouette -->
+  <path d="M160 100 L240 100 L235 150 L245 200 L235 300 L225 350 L175 350 L165 300 L155 200 L165 150 Z" fill="#2d3748" stroke="#e9ecef" stroke-width="2"/>
+  <!-- Elastic waistband -->
+  <rect x="160" y="95" width="80" height="10" fill="#1a202c" rx="5"/>
+  <!-- Side stripes -->
+  <rect x="155" y="120" width="5" height="200" fill="#e53e3e"/>
+  <rect x="240" y="120" width="5" height="200" fill="#e53e3e"/>
+  <!-- Pockets -->
+  <rect x="170" y="130" width="15" height="20" fill="#1a202c" rx="2"/>
+  <rect x="215" y="130" width="15" height="20" fill="#1a202c" rx="2"/>
+  <!-- Adidas stripes -->
+  <rect x="180" y="180" width="40" height="15" fill="#000000"/>
+  <rect x="185" y="183" width="5" height="9" fill="#ffffff"/>
+  <rect x="195" y="183" width="5" height="9" fill="#ffffff"/>
+  <rect x="205" y="183" width="5" height="9" fill="#ffffff"/>
+  <text x="200" y="200" text-anchor="middle" fill="#000000" font-family="Arial" font-size="10" font-weight="bold">adidas</text>
+  <text x="200" y="380" text-anchor="middle" fill="#666666" font-family="Arial" font-size="14">Kids Joggers</text>
+  <text x="200" y="400" text-anchor="middle" fill="#999999" font-family="Arial" font-size="12">Professional Product Image</text>
+</svg>

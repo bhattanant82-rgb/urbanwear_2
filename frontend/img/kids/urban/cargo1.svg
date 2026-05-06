@@ -1,0 +1,24 @@
+<svg width="400" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="400" height="500" fill="url(#bg)"/>
+  <!-- Cargo Pants silhouette -->
+  <path d="M160 100 L240 100 L235 150 L245 200 L235 300 L225 350 L175 350 L165 300 L155 200 L165 150 Z" fill="#8b4513" stroke="#e9ecef" stroke-width="2"/>
+  <!-- Cargo pockets -->
+  <rect x="170" y="120" width="20" height="25" fill="#654321" rx="3"/>
+  <rect x="210" y="120" width="20" height="25" fill="#654321" rx="3"/>
+  <rect x="170" y="280" width="20" height="30" fill="#654321" rx="3"/>
+  <rect x="210" y="280" width="20" height="30" fill="#654321" rx="3"/>
+  <!-- Side pockets -->
+  <rect x="145" y="200" width="15" height="40" fill="#654321" rx="2"/>
+  <rect x="240" y="200" width="15" height="40" fill="#654321" rx="2"/>
+  <!-- Urban logo -->
+  <rect x="175" y="180" width="50" height="20" fill="#000000" rx="10"/>
+  <text x="200" y="193" text-anchor="middle" fill="#ffffff" font-family="Arial" font-size="12" font-weight="bold">URBAN</text>
+  <text x="200" y="380" text-anchor="middle" fill="#666666" font-family="Arial" font-size="14">Kids Cargo Pants</text>
+  <text x="200" y="400" text-anchor="middle" fill="#999999" font-family="Arial" font-size="12">Professional Product Image</text>
+</svg>

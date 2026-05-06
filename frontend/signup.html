@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | UrbanWear</title>
+    <link rel="stylesheet" href="css/premium-auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        .password-wrapper {
+            position: relative;
+        }
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #888;
+            z-index: 10;
+        }
+        .validation-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0 0 0;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .validation-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+        .validation-item i {
+            margin-right: 8px;
+            font-size: 10px;
+        }
+        .validation-item.valid {
+            color: #2ecc71;
+        }
+        .validation-item.invalid {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="home-link"><i class="fa-solid fa-arrow-left"></i> Home</a>
+
+    <div class="auth-container">
+        <!-- Image Side -->
+        <div class="auth-image-side">
+            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?q=80&w=1974&auto=format&fit=crop" alt="Fashion Editorial">
+            <div class="auth-overlay">
+                <h2>JOIN THE CLUB</h2>
+                <p>Experience exclusive drops and early access.</p>
+            </div>
+        </div>
+
+        <!-- Form Side -->
+        <div class="auth-form-side">
+            <div class="form-wrapper">
+                <h1 class="brand-title">Create Account</h1>
+                <p class="brand-subtitle">Start your journey with UrbanWear.</p>
+
+                
+                    <div class="error" id="signup-error" style="display:none;"></div>
+                
+
+                
+                    <div class="success" id="signup-success" style="display:none;"></div>
+                
+
+                 <div class="connection-status">
+                    <small id="backend-status">● Checking...</small>
+                </div>
+
+                <form id="signup-form" onsubmit="handleSignup(event)">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" value="" required placeholder="Type your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" value="" required placeholder="Type your email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" required placeholder="Create a password">
+                            <i class="fa-solid fa-eye password-toggle" id="togglePassword"></i>
+                        </div>
+                        <div id="password-hint" class="validation-list" style="margin-top:5px; font-size:0.8rem; color:#666;">
+                            Password must be at least 6 characters
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm_password">Confirm Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirm_password" name="confirm_password" required placeholder="Confirm your password">
+                            <i class="fa-solid fa-eye password-toggle" id="toggleConfirm"></i>
+                        </div>
+                        <div id="match-message" class="validation-list" style="margin-top:5px; font-size:0.8rem;"></div>
+                    </div>
+
+                    <button type="submit" class="btn-auth" id="submitBtn">Sign Up</button>
+                </form>
+
+                <div class="auth-links">
+                    <p>Already a member? <a href="login.html">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const passwordInput = document.getElementById('password');
+            const confirmInput = document.getElementById('confirm_password');
+            const submitBtn = document.getElementById('submitBtn');
+            const togglePassword = document.getElementById('togglePassword');
+            const toggleConfirm = document.getElementById('toggleConfirm');
+            
+            function validatePassword() {
+                const val = passwordInput.value;
+                const hint = document.getElementById('password-hint');
+                
+                if (val.length >= 6) {
+                    hint.innerHTML = '<span style="color:#2ecc71"><i class="fa-solid fa-check"></i> Valid length</span>';
+                    return true;
+                } else {
+                    hint.innerHTML = 'Password must be at least 6 characters';
+                    return false;
+                }
+            }
+
+            function checkMatch() {
+                const matchMsg = document.getElementById('match-message');
+                if (confirmInput.value.length > 0) {
+                    if (passwordInput.value === confirmInput.value) {
+                        matchMsg.innerHTML = '<span style="color:#2ecc71"><i class="fa-solid fa-check"></i> Passwords match</span>';
+                        return true;
+                    } else {
+                        matchMsg.innerHTML = '<span style="color:#e74c3c"><i class="fa-solid fa-times"></i> Passwords do not match</span>';
+                        return false;
+                    }
+                }
+                matchMsg.innerHTML = '';
+                return false;
+            }
+
+            function toggleVisibility(input, icon) {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                icon.classList.toggle('fa-eye');
+                icon.classList.toggle('fa-eye-slash');
+            }
+
+            passwordInput.addEventListener('input', validatePassword);
+            confirmInput.addEventListener('input', checkMatch);
+            
+            togglePassword.addEventListener('click', () => toggleVisibility(passwordInput, togglePassword));
+            toggleConfirm.addEventListener('click', () => toggleVisibility(confirmInput, toggleConfirm));
+
+            // Submit logic is handled by handleSignup function
+        });
+    </script>
+
+<script src="js/api.js"></script>
+<script>
+// Check backend status
+(async function() {
+  const el = document.getElementById('backend-status');
+  try {
+    const r = await window.API.get('/health');
+    if(r && el) el.innerHTML = '<span style="color:green">● System Operational</span>';
+  } catch(e) { if(el) el.innerHTML = '<span style="color:red">● System Unreachable</span>'; }
+})();
+
+if (window.API.isLoggedIn()) window.location.href = 'user-dashboard.html';
+
+async function handleSignup(e) {
+  e.preventDefault();
+  const name = document.getElementById('name')?.value.trim() || document.querySelector('input[name="name"]')?.value.trim() || '';
+  const email = document.getElementById('email')?.value.trim() || document.querySelector('input[name="email"]')?.value.trim() || '';
+  const password = document.getElementById('password')?.value || document.querySelector('input[name="password"]')?.value || '';
+  const btn = e.target.querySelector('button[type="submit"]');
+  
+  if (!name || !email || !password) { showSignupError('All fields are required'); return; }
+  
+  btn.disabled = true; btn.textContent = 'Creating...';
+  const r = await window.API.post('/api/v1/auth/register', { name, email, password });
+  btn.disabled = false; btn.textContent = 'Create Account';
+  
+  if (r.success) {
+    const successEl = document.getElementById('signup-success');
+    if(successEl) { successEl.textContent = 'Account created! Redirecting...'; successEl.style.display='block'; }
+    if (r.data?.token) { window.API.setAuthToken(r.data.token, r.data.user); }
+    setTimeout(() => window.location.href = 'login.html', 1500);
+  } else { showSignupError(r.message || 'Signup failed. Please try again.'); }
+}
+function showSignupError(msg) {
+  const el = document.getElementById('signup-error');
+  if(el) { el.textContent = msg; el.style.display = 'block'; }
+}
+</script>
+</body>
+</html>

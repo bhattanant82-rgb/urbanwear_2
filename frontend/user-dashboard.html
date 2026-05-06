@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>My Account — URBANWEAR</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ══════════════════════════════════════════
+   URBANWEAR — USER DASHBOARD
+   Net-A-Porter × MyTheresa × Farfetch
+   Pure white · Serif headlines · Editorial
+   ══════════════════════════════════════════ */
+:root {
+  --white:   #ffffff;
+  --off:     #faf9f7;
+  --bg:      #f5f3ef;
+  --border:  #e8e4de;
+  --border2: #d4cfc7;
+  --ink:     #1a1814;
+  --mid:     #6b6560;
+  --muted:   #a8a29a;
+  --accent:  #1a1814;
+  --gold:    #b8965a;
+  --grn:     #2d5a3d;
+  --red:     #9e3a2a;
+  --ease:    cubic-bezier(0.16,1,0.3,1);
+  --sw:      260px;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { height:100%; scroll-behavior:smooth; }
+body {
+  font-family:'DM Sans',sans-serif;
+  background:var(--white);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  -webkit-font-smoothing:antialiased;
+}
+a { text-decoration:none; color:inherit; }
+button { font-family:'DM Sans',sans-serif; cursor:pointer; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+
+/* ══ SIDEBAR ══ */
+.sb {
+  width: var(--sw);
+  background: var(--white);
+  border-right: 1px solid var(--border);
+  position: sticky; top:0; height:100vh;
+  display: flex; flex-direction:column;
+  overflow-y: auto; flex-shrink:0;
+}
+
+.sb-top {
+  padding: 28px 28px 22px;
+  border-bottom: 1px solid var(--border);
+}
+.sb-logo {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem; font-weight:600;
+  letter-spacing:5px; text-transform:uppercase;
+  color:var(--ink); display:block; margin-bottom:2px;
+}
+.sb-logo-sub {
+  font-size:0.58rem; letter-spacing:0.3em;
+  text-transform:uppercase; color:var(--muted); font-weight:400;
+}
+
+/* Avatar block */
+.sb-user {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border);
+}
+.sb-avatar-wrap {
+  display: flex; align-items:center; gap:14px;
+  margin-bottom: 14px;
+}
+.sb-avatar {
+  width: 44px; height:44px; border-radius:50%;
+  background: var(--ink);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem; font-weight:600; color:var(--white);
+  flex-shrink:0;
+}
+.sb-uname { font-size:0.9rem; font-weight:600; color:var(--ink); line-height:1.2; }
+.sb-uemail { font-size:0.68rem; color:var(--muted); margin-top:2px; font-weight:300; }
+.sb-member {
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:0.58rem; font-weight:600; letter-spacing:0.2em;
+  text-transform:uppercase; color:var(--grn);
+  background:rgba(45,90,61,0.07);
+  padding:4px 12px; border-radius:20px;
+}
+.sb-member::before {
+  content:''; width:5px; height:5px; border-radius:50%;
+  background:var(--grn); display:block;
+}
+
+/* Nav */
+.sb-nav { padding:18px 0; flex:1; }
+.sb-grp-lbl {
+  font-size:0.56rem; font-weight:700; letter-spacing:0.38em;
+  text-transform:uppercase; color:var(--muted);
+  padding:0 28px; margin:14px 0 4px; display:block;
+}
+.nl {
+  display:flex; align-items:center; gap:11px;
+  padding:10px 28px;
+  font-size:0.73rem; font-weight:400;
+  text-transform:uppercase; letter-spacing:0.1em;
+  color:var(--mid); cursor:pointer;
+  border-right:2px solid transparent;
+  transition:all 0.22s; user-select:none;
+}
+.nl i { font-size:0.76rem; width:15px; text-align:center; opacity:0.6; }
+.nl:hover { color:var(--ink); background:var(--off); }
+.nl.on { color:var(--ink); font-weight:600; border-right-color:var(--ink); background:var(--off); }
+.nl.on i { opacity:1; }
+.nl-badge {
+  margin-left:auto; font-size:0.58rem; font-weight:700;
+  background:var(--bg); color:var(--mid);
+  padding:2px 8px; border-radius:20px;
+  border:1px solid var(--border);
+}
+.sb-hr { height:1px; background:var(--border); margin:12px 28px; }
+.nl.exit { color:rgba(158,58,42,0.6); }
+.nl.exit:hover { color:var(--red); background:rgba(158,58,42,0.04); border-right-color:var(--red); }
+
+/* Bottom user info */
+.sb-bottom {
+  padding:16px 28px;
+  border-top:1px solid var(--border);
+  font-size:0.68rem; color:var(--muted); font-weight:300;
+  letter-spacing:0.04em;
+}
+
+/* ══ MAIN ══ */
+.main {
+  flex:1; min-height:100vh;
+  background:var(--off);
+  display:flex; flex-direction:column;
+}
+
+/* Top bar */
+.topbar {
+  height:54px; background:var(--white);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  padding:0 48px;
+  position:sticky; top:0; z-index:100;
+  flex-shrink:0;
+}
+.tb-crumb {
+  display:flex; align-items:center; gap:7px;
+  font-size:0.72rem; letter-spacing:0.06em;
+}
+.tb-crumb .seg { color:var(--muted); }
+.tb-crumb .sep { color:var(--border2); }
+.tb-crumb .cur { color:var(--ink); font-weight:600; }
+.tb-right {
+  display:flex; align-items:center; gap:12px;
+}
+.tb-shop {
+  display:flex; align-items:center; gap:7px;
+  font-size:0.68rem; font-weight:600; letter-spacing:0.15em;
+  text-transform:uppercase; color:var(--mid);
+  padding:7px 16px; border:1px solid var(--border);
+  transition:all 0.22s;
+}
+.tb-shop:hover { border-color:var(--ink); color:var(--ink); }
+
+/* Content */
+.content { padding:40px 48px 80px; flex:1; }
+
+/* ══ ALERTS ══ */
+.alert {
+  display:flex; align-items:center; gap:10px;
+  padding:12px 18px; margin-bottom:24px;
+  font-size:0.8rem; font-weight:500; border:1px solid;
+  border-radius:2px; animation:aIn 0.3s var(--ease);
+}
+@keyframes aIn { from{opacity:0;transform:translateY(-6px)} to{opacity:1;transform:translateY(0)} }
+.ae { background:rgba(158,58,42,0.05); color:var(--red); border-color:rgba(158,58,42,0.2); }
+.ao { background:rgba(45,90,61,0.05); color:var(--grn); border-color:rgba(45,90,61,0.18); }
+
+/* ══ PANELS ══ */
+.panel { display:none; }
+.panel.on { display:block; animation:pIn 0.42s var(--ease); }
+@keyframes pIn { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ══ PAGE HEADER ══ */
+.ph {
+  margin-bottom:36px;
+  padding-bottom:28px;
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:flex-end; justify-content:space-between;
+}
+.ph-left {}
+.ph-eyebrow {
+  font-size:0.62rem; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.35em;
+  color:var(--muted); margin-bottom:6px;
+}
+.ph-title {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.6rem; font-weight:400;
+  color:var(--ink); line-height:1; letter-spacing:-0.02em;
+}
+.ph-title em { font-style:italic; color:var(--gold); }
+.ph-sub {
+  font-size:0.78rem; font-weight:300;
+  color:var(--muted); margin-top:6px;
+  letter-spacing:0.04em;
+}
+.ph-action { flex-shrink:0; }
+
+/* ══ KPI STRIP ══ */
+.kpi-strip {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  background:var(--white); border:1px solid var(--border);
+  margin-bottom:28px;
+}
+.kpi {
+  padding:26px 28px;
+  border-right:1px solid var(--border);
+  position:relative; transition:background 0.25s;
+}
+.kpi:last-child { border-right:none; }
+.kpi:hover { background:var(--off); }
+.kpi-lbl {
+  font-size:0.62rem; font-weight:600;
+  text-transform:uppercase; letter-spacing:0.22em;
+  color:var(--muted); margin-bottom:10px;
+}
+.kpi-val {
+  font-family:'Cormorant Garamond',serif;
+  font-size:2.4rem; font-weight:400;
+  color:var(--ink); line-height:1; letter-spacing:-0.02em;
+}
+.kpi-val.sm {
+  font-family:'DM Sans',sans-serif;
+  font-size:0.88rem; font-weight:500;
+  display:flex; align-items:center; gap:7px;
+  letter-spacing:0.02em;
+}
+.kpi-dot {
+  width:7px; height:7px; border-radius:50%;
+  background:var(--grn); flex-shrink:0;
+}
+.kpi-stripe {
+  position:absolute; top:0; left:0;
+  width:100%; height:2px;
+}
+.kpi:nth-child(1) .kpi-stripe { background:var(--gold); }
+.kpi:nth-child(2) .kpi-stripe { background:var(--ink); }
+.kpi:nth-child(3) .kpi-stripe { background:var(--grn); }
+
+/* ══ PROFILE INFO ══ */
+.prof-row {
+  display:grid; grid-template-columns:repeat(3,1fr);
+  background:var(--white); border:1px solid var(--border);
+  margin-bottom:32px;
+}
+.prof-cell {
+  padding:22px 26px;
+  border-right:1px solid var(--border);
+}
+.prof-cell:last-child { border-right:none; }
+.prof-lbl {
+  font-size:0.6rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.22em;
+  color:var(--muted); margin-bottom:8px;
+}
+.prof-val { font-size:0.92rem; font-weight:500; color:var(--ink); }
+
+/* ══ SECTION LABEL ══ */
+.sec-lbl {
+  display:flex; align-items:center; gap:12px;
+  font-size:0.62rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.25em;
+  color:var(--muted); margin:32px 0 16px;
+}
+.sec-lbl::after { content:''; flex:1; height:1px; background:var(--border); }
+
+/* ══ ORDER CARDS ══ */
+.o-list { display:flex; flex-direction:column; gap:8px; }
+.oc {
+  background:var(--white); border:1px solid var(--border);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 24px;
+  transition:all 0.28s var(--ease);
+  position:relative;
+}
+.oc::before {
+  content:''; position:absolute; left:0; top:0; bottom:0;
+  width:3px; background:var(--border);
+  transition:background 0.25s;
+}
+.oc:hover { box-shadow:0 4px 20px rgba(26,24,20,0.07); transform:translateX(2px); }
+.oc:hover::before { background:var(--gold); }
+.oc-id {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem; font-weight:500; color:var(--ink);
+  margin-bottom:4px;
+}
+.oc-meta {
+  font-size:0.72rem; color:var(--muted); font-weight:300;
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+}
+.oc-meta strong { color:var(--ink); font-weight:600; }
+.oc-right { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+
+/* Status pills */
+.pill {
+  font-size:0.58rem; font-weight:700; letter-spacing:0.12em;
+  text-transform:uppercase; padding:4px 12px;
+  display:inline-block; white-space:nowrap;
+}
+.s-pending    { background:rgba(184,150,90,0.1);  color:var(--gold); border:1px solid rgba(184,150,90,0.25); }
+.s-processing { background:rgba(45,90,61,0.08);   color:var(--grn);  border:1px solid rgba(45,90,61,0.18); }
+.s-delivered  { background:rgba(45,90,61,0.1);    color:var(--grn);  border:1px solid rgba(45,90,61,0.2); }
+.s-cancelled  { background:rgba(158,58,42,0.07);  color:var(--red);  border:1px solid rgba(158,58,42,0.18); }
+.s-shipped    { background:rgba(26,24,20,0.06);   color:var(--ink);  border:1px solid rgba(26,24,20,0.12); }
+.s-placed     { background:rgba(184,150,90,0.1);  color:var(--gold); border:1px solid rgba(184,150,90,0.25); }
+.s-paid       { background:rgba(45,90,61,0.1);    color:var(--grn);  border:1px solid rgba(45,90,61,0.2); }
+.s-confirmed  { background:rgba(45,90,61,0.1);    color:var(--grn);  border:1px solid rgba(45,90,61,0.2); }
+
+/* ══ BUTTONS ══ */
+.btn {
+  display:inline-flex; align-items:center; gap:7px;
+  padding:9px 20px; border:none;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.66rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.18em;
+  cursor:pointer; transition:all 0.25s var(--ease);
+  white-space:nowrap;
+}
+.btn-dark { background:var(--ink); color:var(--white); }
+.btn-dark:hover { background:#333; }
+.btn-out { background:var(--white); color:var(--ink); border:1px solid var(--border); }
+.btn-out:hover { border-color:var(--ink); }
+.btn-red { background:rgba(158,58,42,0.07); color:var(--red); border:1px solid rgba(158,58,42,0.2); }
+.btn-red:hover { background:var(--red); color:var(--white); }
+.btn-sm { padding:6px 14px; font-size:0.6rem; }
+
+/* ══ ADDRESS GRID ══ */
+.agrid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.acard {
+  background:var(--white); border:1px solid var(--border);
+  padding:24px 26px; transition:all 0.3s var(--ease);
+  position:relative;
+}
+.acard:hover { box-shadow:0 6px 24px rgba(26,24,20,0.07); border-color:var(--border2); }
+.acard-top-bar {
+  position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--border); transition:background 0.3s;
+}
+.acard:hover .acard-top-bar { background:var(--gold); }
+.acard-name {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem; font-weight:500; color:var(--ink);
+  margin-bottom:12px; padding-bottom:12px;
+  border-bottom:1px solid var(--border);
+}
+.acard-text {
+  font-size:0.8rem; color:var(--mid);
+  line-height:1.9; font-weight:300; margin-bottom:18px;
+}
+.acard-acts { display:flex; gap:8px; }
+
+.a-empty {
+  grid-column:1/-1; text-align:center;
+  padding:52px; border:1px dashed var(--border);
+  background:var(--white);
+}
+.a-empty p { color:var(--muted); font-size:0.85rem; font-weight:300; margin-bottom:16px; }
+
+/* Empty state */
+.empty-panel {
+  text-align:center; padding:80px 40px;
+  background:var(--white); border:1px solid var(--border);
+}
+.empty-panel i { font-size:2.5rem; color:var(--border2); margin-bottom:16px; display:block; }
+.empty-panel p { color:var(--muted); font-weight:300; margin-bottom:24px; font-size:0.88rem; }
+
+/* ══ MODALS ══ */
+.modal {
+  display:none; position:fixed; inset:0; z-index:9000;
+  background:rgba(26,24,20,0.5);
+  backdrop-filter:blur(10px);
+  align-items:center; justify-content:center; padding:20px;
+}
+.modal.on { display:flex; animation:mF 0.22s ease; }
+@keyframes mF { from{opacity:0} to{opacity:1} }
+.mbox {
+  background:var(--white); width:100%; max-width:480px;
+  max-height:92vh; overflow-y:auto;
+  border:1px solid var(--border);
+  box-shadow:0 32px 80px rgba(26,24,20,0.18);
+  animation:mU 0.35s var(--ease);
+}
+.mbox.wide { max-width:600px; }
+@keyframes mU { from{transform:translateY(16px);opacity:0} to{transform:translateY(0);opacity:1} }
+.mbox-head {
+  padding:22px 28px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; background:var(--white); z-index:1;
+}
+.mbox-head h3 {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.5rem; font-weight:400; color:var(--ink);
+}
+.mbox-close {
+  width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+  border:none; background:var(--bg); color:var(--mid);
+  cursor:pointer; font-size:1rem; transition:all 0.2s;
+}
+.mbox-close:hover { background:var(--border); color:var(--ink); }
+.mbox-body { padding:28px; }
+.mbox-foot {
+  padding:16px 28px; border-top:1px solid var(--border);
+  position:sticky; bottom:0; background:var(--white);
+}
+
+/* Form fields */
+.fg { margin-bottom:16px; }
+.fg label {
+  display:block; font-size:0.6rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:0.22em;
+  color:var(--mid); margin-bottom:7px;
+}
+.fi {
+  width:100%; padding:10px 14px;
+  background:var(--off); border:1px solid var(--border);
+  font-family:'DM Sans',sans-serif; font-size:0.87rem;
+  color:var(--ink); outline:none; transition:all 0.22s;
+}
+.fi:focus { border-color:var(--ink); background:var(--white); box-shadow:0 0 0 3px rgba(26,24,20,0.05); }
+.fr { display:flex; gap:12px; }
+textarea.fi { resize:vertical; min-height:80px; }
+
+/* Order detail */
+.od-row {
+  display:flex; justify-content:space-between; align-items:flex-start;
+  padding:16px 0; border-bottom:1px solid var(--border);
+}
+.od-row:last-child { border-bottom:none; }
+.od-name { font-size:0.88rem; font-weight:600; color:var(--ink); margin-bottom:4px; }
+.od-meta { font-size:0.72rem; color:var(--muted); font-weight:300; }
+.od-price {
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem; font-weight:500; color:var(--ink); flex-shrink:0;
+}
+
+/* Address info in order */
+.od-addr {
+  background:var(--off); padding:16px 18px;
+  border:1px solid var(--border); margin-bottom:18px;
+}
+
+/* Review stars */
+.r-stars { display:flex; gap:6px; margin-top:8px; }
+.rstar { font-size:1.8rem; cursor:pointer; color:var(--border); transition:color 0.18s; line-height:1; }
+.rstar:hover, .rstar.on { color:var(--gold); }
+
+/* Responsive */
+@media(max-width:1100px) {
+  .content { padding:32px 28px 60px; }
+  .kpi-strip { grid-template-columns:1fr 1fr; }
+  .kpi:last-child { border-top:1px solid var(--border); }
+  .prof-row { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:820px) {
+  body { flex-direction:column; }
+  .sb { width:100%; height:auto; position:static; border-right:none; border-bottom:1px solid var(--border); }
+  .sb-nav { display:flex; flex-wrap:wrap; padding:10px; }
+  .nl { border-right:none; border-bottom:2px solid transparent; }
+  .nl.on { border-right:none; border-bottom-color:var(--ink); }
+  .agrid { grid-template-columns:1fr; }
+  .prof-row { grid-template-columns:1fr; }
+  .prof-cell { border-right:none; border-bottom:1px solid var(--border); }
+  .kpi-strip { grid-template-columns:1fr; }
+  .kpi { border-right:none; border-bottom:1px solid var(--border); }
+  .oc { flex-direction:column; align-items:flex-start; gap:12px; }
+  .ph { flex-direction:column; gap:14px; }
+  .ph-title { font-size:2rem; }
+  .topbar { padding:0 20px; }
+  .content { padding:24px 18px 48px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sb">
+  <div class="sb-top">
+    <a href="index.html" class="sb-logo">Urbanwear</a>
+    <span class="sb-logo-sub">My Account</span>
+  </div>
+
+  <div class="sb-user">
+    <div class="sb-avatar-wrap">
+      <div class="sb-avatar"></div>
+      <div>
+        <div class="sb-uname"></div>
+        <div class="sb-uemail"></div>
+      </div>
+    </div>
+    <div class="sb-member">Active Member</div>
+  </div>
+
+  <nav class="sb-nav">
+    <span class="sb-grp-lbl">Dashboard</span>
+    <a class="nl on" onclick="go('overview',this)">
+      <i class="fa-solid fa-grid-2"></i> Overview
+      <span class="nl-badge"></span>
+    </a>
+    <a class="nl" onclick="go('orders',this)">
+      <i class="fa-solid fa-bag-shopping"></i> My Orders
+      <span class="nl-badge"></span>
+    </a>
+    <a class="nl" onclick="go('addresses',this)">
+      <i class="fa-solid fa-location-dot"></i> Addresses
+      <span class="nl-badge"></span>
+    </a>
+    <div class="sb-hr"></div>
+    <span class="sb-grp-lbl">More</span>
+    <a href="index.html" class="nl"><i class="fa-solid fa-arrow-left"></i> Back to Shop</a>
+    <a href="logout.html" class="nl exit"><i class="fa-solid fa-right-from-bracket"></i> Sign Out</a>
+  </nav>
+
+  <div class="sb-bottom">
+    Member since 
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="tb-crumb">
+      <span class="seg">Account</span>
+      <span class="sep">/</span>
+      <span class="cur" id="crumbCur">Overview</span>
+    </div>
+    <div class="tb-right">
+      <a href="index.html" class="tb-shop"><i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.7rem;"></i> Continue Shopping</a>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <div class="alert ae" id="dash-error" style="display:none;"><i class="fa-solid fa-circle-exclamation"></i> <span></span></div>
+    <div class="alert ao" id="dash-success" style="display:none;"><i class="fa-solid fa-circle-check"></i> <span></span></div>
+
+    <!-- ═══ OVERVIEW ═══ -->
+    <section id="overview" class="panel on">
+
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-eyebrow">Welcome back, </div>
+          <h1 class="ph-title">Account <em>Overview</em></h1>
+          <p class="ph-sub">Your orders, addresses and activity at a glance.</p>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-strip">
+        <div class="kpi">
+          <div class="kpi-stripe"></div>
+          <div class="kpi-lbl">Total Spent</div>
+          <div class="kpi-val">₹</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-stripe"></div>
+          <div class="kpi-lbl">Orders Placed</div>
+          <div class="kpi-val"></div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-stripe"></div>
+          <div class="kpi-lbl">Membership</div>
+          <div class="kpi-val sm"><span class="kpi-dot"></span> Active</div>
+        </div>
+      </div>
+
+      <!-- Profile info -->
+      <div class="prof-row">
+        <div class="prof-cell">
+          <div class="prof-lbl">Full Name</div>
+          <div class="prof-val"></div>
+        </div>
+        <div class="prof-cell">
+          <div class="prof-lbl">Email Address</div>
+          <div class="prof-val"></div>
+        </div>
+        <div class="prof-cell">
+          <div class="prof-lbl">Member Since</div>
+          <div class="prof-val"></div>
+        </div>
+      </div>
+
+      <!-- Recent order -->
+      <div class="sec-lbl">Recent Order</div>
+      <div id="recent-order-container">
+        <div style="color:var(--muted);font-size:0.85rem;font-weight:300;padding:24px;background:var(--white);border:1px solid var(--border);">Loading...</div>
+      </div>
+      
+
+
+    </section>
+
+    <!-- ═══ ORDERS ═══ -->
+    <section id="orders" class="panel">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-eyebrow">Purchase History</div>
+          <h1 class="ph-title">My <em>Orders</em></h1>
+          <p class="ph-sub"> orders placed · ₹ total spent</p>
+        </div>
+      </div>
+
+      <div class="empty-panel" style="display:none;">
+        <i class="fa-solid fa-box-open"></i>
+        <p>No orders placed yet. Start browsing!</p>
+        <a href="index.html" class="btn btn-dark">Shop Now</a>
+      </div>
+      
+      <div class="o-list">
+        <div style="color:var(--muted);font-size:0.85rem;font-weight:300;padding:24px;background:var(--white);border:1px solid var(--border);text-align:center;">Loading orders...</div>
+      </div>
+      
+    </section>
+
+    <!-- ═══ ADDRESSES ═══ -->
+    <section id="addresses" class="panel">
+      <div class="ph">
+        <div class="ph-left">
+          <div class="ph-eyebrow">Saved Locations</div>
+          <h1 class="ph-title">My <em>Addresses</em></h1>
+          <p class="ph-sub">Faster checkout, every time.</p>
+        </div>
+        <div class="ph-action">
+          <button class="btn btn-dark" onclick="openAddr()"><i class="fa-solid fa-plus"></i> Add New</button>
+        </div>
+      </div>
+
+      <div class="agrid">
+        <div class="a-empty" style="grid-column:1/-1;">
+          <p>Loading addresses...</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+
+<!-- ══ ADDRESS MODAL ══ -->
+<div id="mAddr" class="modal">
+  <div class="mbox">
+    <div class="mbox-head">
+      <h3 id="addrT">Add Address</h3>
+      <button class="mbox-close" onclick="closeM('mAddr')">✕</button>
+    </div>
+    <div class="mbox-body">
+      <form method="POST" id="addrForm" onsubmit="return false;">
+        <input type="hidden" name="action" value="save_address">
+        <input type="hidden" name="address_id" id="a_id">
+        <div class="fg"><label>Full Name</label><input type="text" name="name" id="a_name" class="fi" required placeholder="Your name"></div>
+        <div class="fg"><label>Mobile Number</label><input type="text" name="phone" id="a_phone" class="fi" required placeholder="+91 00000 00000"></div>
+        <div class="fg"><label>Street Address</label><input type="text" name="street" id="a_street" class="fi" required placeholder="House no., street, area"></div>
+        <div class="fr">
+          <div class="fg" style="flex:1;"><label>City</label><input type="text" name="city" id="a_city" class="fi" required placeholder="City"></div>
+          <div class="fg" style="flex:1;"><label>State</label><input type="text" name="state" id="a_state" class="fi" required placeholder="State"></div>
+        </div>
+        <div class="fg"><label>Pincode</label><input type="text" name="zip" id="a_zip" class="fi" required placeholder="000 000"></div>
+      </form>
+    </div>
+    <div class="mbox-foot">
+      <button class="btn btn-out btn-sm" onclick="closeM('mAddr')" style="margin-right:8px;">Cancel</button>
+      <button class="btn btn-dark" onclick="saveAddress()"><i class="fa-solid fa-check"></i> Save Address</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ORDER DETAIL MODAL ══ -->
+<div id="mOrder" class="modal">
+  <div class="mbox wide">
+    <div class="mbox-head">
+      <h3>Order Details</h3>
+      <button class="mbox-close" onclick="closeM('mOrder')">✕</button>
+    </div>
+    <div class="mbox-body" id="oContent">
+      <p style="color:var(--muted);font-size:0.85rem;">Loading…</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REVIEW MODAL ══ -->
+<div id="mReview" class="modal">
+  <div class="mbox">
+    <div class="mbox-head">
+      <h3>Rate Product</h3>
+      <button class="mbox-close" onclick="closeM('mReview')">✕</button>
+    </div>
+    <div class="mbox-body">
+      <input type="hidden" id="r_pid">
+      <input type="hidden" id="r_oid">
+      <div class="fg">
+        <label>Your Rating</label>
+        <div class="r-stars">
+          <span class="rstar" onclick="setR(1)">★</span>
+          <span class="rstar" onclick="setR(2)">★</span>
+          <span class="rstar" onclick="setR(3)">★</span>
+          <span class="rstar" onclick="setR(4)">★</span>
+          <span class="rstar" onclick="setR(5)">★</span>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Review (Optional)</label>
+        <textarea id="r_txt" class="fi" placeholder="Share your experience with this product…"></textarea>
+      </div>
+    </div>
+    <div class="mbox-foot">
+      <button class="btn btn-out btn-sm" onclick="closeM('mReview')" style="margin-right:8px;">Cancel</button>
+      <button class="btn btn-dark" onclick="submitReview()"><i class="fa-solid fa-star"></i> Submit Review</button>
+      <div id="r_msg" style="margin-top:10px;font-size:0.75rem;color:var(--muted);"></div>
+    </div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script>
+const ordersData = [];
+const addressesData = [];
+const crumbLabels = { overview:'Overview', orders:'My Orders', addresses:'Addresses' };
+
+async function initDashboardPage() {
+  if (!window.API || !window.API.isLoggedIn()) {
+    window.location.href = 'login.html';
+    return;
+  }
+  window.AUTH_TOKEN = window.API.getAuthToken() || '';
+  window.IS_LOGGED_IN = window.API.isLoggedIn();
+
+  const user = window.API.getUser() || {};
+  const avatarEl = document.querySelector('.sb-avatar');
+  if (avatarEl) avatarEl.textContent = user.name ? user.name.substring(0,2).toUpperCase() : 'U';
+  document.querySelector('.sb-uname').textContent = user.name || 'User';
+  document.querySelector('.sb-uemail').textContent = user.email || '';
+  document.querySelector('.sb-bottom').textContent = 'Member since ' + (user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-IN') : 'today');
+  document.querySelector('.prof-row .prof-cell:nth-child(1) .prof-val').textContent = user.name || 'User';
+  document.querySelector('.prof-row .prof-cell:nth-child(2) .prof-val').textContent = user.email || '';
+  document.querySelector('.prof-row .prof-cell:nth-child(3) .prof-val').textContent = user.createdAt ? new Date(user.createdAt).toLocaleDateString('en-IN') : '-';
+
+  await fetchOrders();
+  await fetchAddresses();
+  renderOverview();
+  renderOrders();
+  renderAddresses();
+  updateNavBadges();
+}
+
+async function fetchOrders() {
+  const res = await window.API.get('/api/v1/orders');
+  if (res.success && Array.isArray(res.data)) {
+    ordersData.splice(0, ordersData.length, ...res.data);
+  }
+}
+
+async function fetchAddresses() {
+  const res = await window.API.get('/api/v1/addresses');
+  if (res.success && Array.isArray(res.data)) {
+    addressesData.splice(0, addressesData.length, ...res.data);
+  }
+}
+
+function updateNavBadges() {
+  document.querySelectorAll('.nl-badge').forEach((badge, index) => {
+    if (badge.closest('.nl')?.textContent.includes('Orders')) badge.textContent = ordersData.length || '';
+    if (badge.closest('.nl')?.textContent.includes('Addresses')) badge.textContent = addressesData.length || '';
+  });
+}
+
+function formatCurrency(value) {
+  return '₹' + (Math.round(value||0)).toLocaleString('en-IN');
+}
+
+function renderOverview() {
+  const total = ordersData.reduce((sum,o)=>sum + (o.totalAmount||0), 0);
+  const ordersCount = ordersData.length;
+  const kpiVals = document.querySelectorAll('.kpi-val');
+  if(kpiVals[0]) kpiVals[0].textContent = formatCurrency(total);
+  if(kpiVals[1]) kpiVals[1].textContent = ordersCount;
+
+  // Update orders page sub-header
+  const ordSub = document.querySelector('#orders .ph-sub');
+  if(ordSub) ordSub.textContent = `${ordersCount} orders placed · ${formatCurrency(total)} total spent`;
+
+  // Welcome message
+  const user = window.API.getUser() || {};
+  const eyebrow = document.querySelector('.ph-eyebrow');
+  if(eyebrow) eyebrow.textContent = `Welcome back, ${user.name ? user.name.split(' ')[0] : 'there'}`;
+
+  const recentOrder = ordersData[0];
+  const container = document.getElementById('recent-order-container');
+  if (!container) return;
+  if (recentOrder) {
+    const st = (recentOrder.orderStatus||'pending').toLowerCase();
+    container.innerHTML = `<div class="oc">
+      <div>
+        <div class="oc-id">Order #${recentOrder._id}</div>
+        <div class="oc-meta">
+          <span>${new Date(recentOrder.createdAt).toLocaleDateString('en-IN')}</span>
+          <span>·</span>
+          <strong>${formatCurrency(recentOrder.totalAmount)}</strong>
+          <span>·</span>
+          <span>${recentOrder.paymentStatus||'Pending'}</span>
+        </div>
+      </div>
+      <div class="oc-right">
+        <span class="pill s-${st}">${recentOrder.orderStatus||'Pending'}</span>
+        <button class="btn btn-out btn-sm" onclick="viewOrder('${recentOrder._id}')">View Details</button>
+      </div>
+    </div>`;
+  } else {
+    container.innerHTML = `<div style="color:var(--muted);font-size:0.85rem;font-weight:300;padding:24px;background:var(--white);border:1px solid var(--border);">No orders placed yet.</div>`;
+  }
+}
+
+function renderOrders() {
+  const list = document.querySelector('#orders .o-list');
+  const emptyPanel = document.querySelector('#orders .empty-panel');
+  if (!list) return;
+  if (!ordersData.length) {
+    if (emptyPanel) emptyPanel.style.display='block';
+    list.innerHTML = '';
+    return;
+  }
+  if (emptyPanel) emptyPanel.style.display='none';
+  list.innerHTML = ordersData.map(o => {
+    const status = (o.orderStatus||'').toLowerCase();
+    return `<div class="oc">
+      <div>
+        <div class="oc-id">Order #${o._id}</div>
+        <div class="oc-meta">
+          <span>${new Date(o.createdAt).toLocaleDateString('en-IN')}</span>
+          <span>·</span>
+          <strong>${formatCurrency(o.totalAmount)}</strong>
+          <span>·</span>
+          <span>${o.paymentStatus || 'Pending'}</span>
+        </div>
+      </div>
+      <div class="oc-right">
+        <span class="pill s-${status}">${o.orderStatus||'Pending'}</span>
+        <button class="btn btn-out btn-sm" onclick="viewOrder('${o._id}')">Details</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAddresses() {
+  const grid = document.querySelector('#addresses .agrid');
+  if (!grid) return;
+  if (!addressesData.length) {
+    grid.innerHTML = `<div class="a-empty">
+      <p>No saved addresses. Add one for faster checkout!</p>
+      <button class="btn btn-dark btn-sm" onclick="openAddr()"><i class="fa-solid fa-plus"></i> Add Address</button>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = addressesData.map(a => `
+    <div class="acard">
+      <div class="acard-top-bar"></div>
+      <div class="acard-name">${a.name || 'Contact'}</div>
+      <div class="acard-text">
+        ${a.address}<br>${a.city || ''}, ${a.state || ''} ${a.zip || ''}<br>
+        <span style="color:var(--muted);">+91 ${a.phone || ''}</span>
+      </div>
+      <div class="acard-acts">
+        <button class="btn btn-out btn-sm" onclick="editAddrById('${a._id || a.id}')">Edit</button>
+        <button class="btn btn-red btn-sm" onclick="deleteAddress('${a._id || a.id}')">Delete</button>
+      </div>
+    </div>`).join('');
+}
+
+async function saveAddress() {
+  const data = {
+    name: document.getElementById('a_name').value,
+    phone: document.getElementById('a_phone').value,
+    address: document.getElementById('a_street').value,
+    city: document.getElementById('a_city').value,
+    state: document.getElementById('a_state').value,
+    zip: document.getElementById('a_zip').value
+  };
+  if (!data.name||!data.phone||!data.address) { alert('Please fill all required fields.'); return; }
+  const id = document.getElementById('a_id').value;
+  const endpoint = id ? `/api/v1/addresses/${id}` : '/api/v1/addresses';
+  const method = id ? 'PUT' : 'POST';
+  const res = id ? await window.API.patch(endpoint, data) : await window.API.post(endpoint, data);
+  if (res.success) {
+    await fetchAddresses();
+    renderAddresses();
+    closeM('mAddr');
+  } else {
+    alert(res.message || 'Could not save address.');
+  }
+}
+
+async function deleteAddress(id) {
+  if (!confirm('Delete this address?')) return;
+  const res = await window.API.delete(`/api/v1/addresses/${id}`);
+  if (res.success) {
+    await fetchAddresses();
+    renderAddresses();
+    updateNavBadges();
+  } else {
+    alert(res.message || 'Could not delete address.');
+  }
+}
+
+function editAddrById(id) {
+  const addr = addressesData.find(x => (x._id||x.id) === id);
+  if (addr) editAddr(addr);
+}
+
+function go(id, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.nl').forEach(l => l.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  if(el) el.classList.add('on');
+  document.getElementById('crumbCur').textContent = crumbLabels[id] || id;
+}
+function closeM(id) { document.getElementById(id).classList.remove('on'); }
+document.querySelectorAll('.modal').forEach(m => {
+  m.addEventListener('click', e => { if(e.target===m) m.classList.remove('on'); });
+});
+
+function openAddr() {
+  document.getElementById('addrT').innerText = 'Add New Address';
+  document.getElementById('a_id').value = '';
+  ['a_name','a_phone','a_street','a_city','a_state','a_zip'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('mAddr').classList.add('on');
+}
+function editAddr(a) {
+  document.getElementById('addrT').innerText = 'Edit Address';
+  document.getElementById('a_id').value     = a._id;
+  document.getElementById('a_name').value   = a.name   || '';
+  document.getElementById('a_phone').value  = a.phone  || '';
+  document.getElementById('a_street').value = a.street || '';
+  document.getElementById('a_city').value   = a.city   || '';
+  document.getElementById('a_state').value  = a.state  || '';
+  document.getElementById('a_zip').value    = a.zip    || '';
+  document.getElementById('mAddr').classList.add('on');
+}
+
+function viewOrder(id) {
+  document.getElementById('mOrder').classList.add('on');
+  const c = document.getElementById('oContent');
+  c.innerHTML = '<p style="color:var(--muted);font-size:0.85rem;">Loading…</p>';
+  const o = ordersData.find(x => x._id === id);
+  if(!o) { c.innerHTML='<p style="color:var(--muted);">Order not found.</p>'; return; }
+
+  const st = (o.orderStatus||'').toLowerCase();
+  const items = (o.products||[]).map(p => `
+    <div class="od-row">
+      <div style="flex:1;">
+        <div class="od-name">${p.productId?.title||'Product'}</div>
+        <div class="od-meta">Size: ${p.size||'M'} &nbsp;·&nbsp; Qty: ${p.quantity}</div>
+      </div>
+      <div style="text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+        <div class="od-price">₹${(p.price*p.quantity).toLocaleString('en-IN')}</div>
+        <button class="btn btn-out btn-sm" onclick="openReview('${p.productId?._id||p.productId}','${o._id}')">
+          <i class="fa-regular fa-star"></i> Rate
+        </button>
+      </div>
+    </div>`).join('');
+
+  c.innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--border);">
+      <div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--ink);">Order #${o._id}</div>
+        <div style="font-size:0.72rem;color:var(--muted);margin-top:3px;">${new Date(o.createdAt).toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'})}</div>
+      </div>
+      <span class="pill s-${st}">${o.orderStatus}</span>
+    </div>
+    <div class="od-addr">
+      <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.22em;color:var(--muted);margin-bottom:8px;">Delivery Address</div>
+      <div style="font-size:0.88rem;font-weight:600;color:var(--ink);margin-bottom:4px;">${o.shipping?.name||'Customer'}</div>
+      <div style="font-size:0.78rem;color:var(--mid);font-weight:300;line-height:1.7;">
+        ${o.shipping?.address||o.shipping?.street||''}, ${o.shipping?.city||''}<br>
+        ${o.shipping?.mobile||o.shipping?.phone||''}
+      </div>
+    </div>
+    <div style="font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.22em;color:var(--muted);margin-bottom:12px;">Items</div>
+    ${items}
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;">
+      <div style="font-size:0.72rem;color:var(--muted);">${o.paymentMethod||'COD'} · ${o.paymentStatus||'Pending'}</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:500;color:var(--ink);">₹${o.totalAmount.toLocaleString('en-IN')}</div>
+    </div>`;
+}
+
+let rR = 0;
+function setR(r) {
+  rR = r;
+  document.querySelectorAll('.rstar').forEach((s,i) => s.classList.toggle('on', i < r));
+}
+function openReview(pid, oid) {
+  document.getElementById('r_pid').value = pid;
+  document.getElementById('r_oid').value = oid;
+  document.getElementById('r_txt').value = '';
+  document.getElementById('r_msg').innerHTML = '';
+  rR = 0;
+  document.querySelectorAll('.rstar').forEach(s => s.classList.remove('on'));
+  document.getElementById('mReview').classList.add('on');
+}
+async function submitReview() {
+  const pid = document.getElementById('r_pid').value;
+  const oid = document.getElementById('r_oid').value;
+  const txt = document.getElementById('r_txt').value;
+  const msg = document.getElementById('r_msg');
+  if(!rR) { msg.textContent = 'Please select a rating.'; msg.style.color='var(--red)'; return; }
+  msg.textContent = 'Submitting…'; msg.style.color='var(--muted)';
+  try {
+    const d = await window.API.post(`/api/v1/products/${pid}/reviews/`, { rating:rR, comment:txt, orderId:oid });
+    if(d.success) { msg.textContent='✓ Review submitted!'; msg.style.color='var(--grn)'; setTimeout(()=>closeM('mReview'),1800); }
+    else { msg.textContent = d.message||'Error submitting.'; msg.style.color='var(--red)'; }
+  } catch(e) { msg.textContent='Network error.'; msg.style.color='var(--red)'; }
+}
+window.addEventListener('DOMContentLoaded', initDashboardPage);
+</script>
+</body>
+</html>

@@ -1,0 +1,471 @@
+/* ═══════════════════════════════════════════════════════════
+   URBANBOT — Premium White Luxury Chat Widget
+   UrbanWear | Minimal. Elegant. Fashion-forward.
+   urbanbot.css
+═══════════════════════════════════════════════════════════ */
+
+/* ── Design Tokens ─────────────────────────────────────── */
+:root {
+    --ub-bg: #F8F8F8;
+    --ub-panel: #FFFFFF;
+    --ub-text: #111111;
+    --ub-muted: #6B6B6B;
+    --ub-gold: #C6A85B;
+    --ub-gold-light: rgba(198, 168, 91, 0.12);
+    --ub-gold-border: rgba(198, 168, 91, 0.35);
+    --ub-border: #EAEAEA;
+    --ub-bubble-user: #F2F2F2;
+    --ub-shadow: 0 12px 48px rgba(0, 0, 0, 0.09), 0 2px 12px rgba(0, 0, 0, 0.05);
+    --ub-radius: 20px;
+    --ub-panel-w: 380px;
+    --ub-panel-h: 560px;
+    --ub-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --ub-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Trigger Button ──────────────────────────────────────── */
+#urbanbot-trigger {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #FFFFFF;
+    border: 1.5px solid var(--ub-gold);
+    color: var(--ub-gold);
+    font-size: 1.25rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(198, 168, 91, 0.22), 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s var(--ub-ease);
+    outline: none;
+}
+
+#urbanbot-trigger:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 28px rgba(198, 168, 91, 0.3), 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: var(--ub-gold-light);
+}
+
+/* Icon swap on open/close */
+#urbanbot-trigger .ubb-icon-open {
+    display: flex;
+    transition: all 0.25s ease;
+}
+
+#urbanbot-trigger .ubb-icon-close {
+    display: none;
+    transition: all 0.25s ease;
+}
+
+#urbanbot-trigger.open .ubb-icon-open {
+    display: none;
+}
+
+#urbanbot-trigger.open .ubb-icon-close {
+    display: flex;
+}
+
+/* Notification dot */
+#urbanbot-trigger .ubb-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 9px;
+    height: 9px;
+    background: var(--ub-gold);
+    border-radius: 50%;
+    border: 2px solid #fff;
+    animation: ub-dot-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes ub-dot-pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.4);
+        opacity: 0.55;
+    }
+}
+
+/* ── Chat Panel ──────────────────────────────────────────── */
+#urbanbot-panel {
+    position: fixed;
+    bottom: 100px;
+    right: 28px;
+    z-index: 9998;
+    width: var(--ub-panel-w);
+    height: var(--ub-panel-h);
+    background: var(--ub-panel);
+    border: 1px solid var(--ub-border);
+    border-radius: var(--ub-radius);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: var(--ub-shadow);
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+    pointer-events: none;
+    transition: opacity 0.3s var(--ub-ease), transform 0.3s var(--ub-ease);
+    font-family: var(--ub-font);
+}
+
+#urbanbot-panel.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: all;
+}
+
+/* ── Panel Header ─────────────────────────────────────────── */
+.ubb-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 18px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--ub-border);
+    flex-shrink: 0;
+}
+
+.ubb-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(198, 168, 91, 0.18) 0%, rgba(198, 168, 91, 0.06) 100%);
+    border: 1.5px solid var(--ub-gold-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    color: var(--ub-gold);
+    font-weight: 700;
+    flex-shrink: 0;
+    letter-spacing: 0.02em;
+}
+
+.ubb-header-info {
+    flex: 1;
+}
+
+/* AI badge in header */
+.ubb-header-badge {
+    margin-left: auto;
+    background: var(--ub-gold-light);
+    color: var(--ub-gold);
+    border: 1px solid var(--ub-gold-border);
+    font-size: 0.60rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    padding: 3px 8px;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.ubb-header-name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--ub-text);
+    letter-spacing: 0.03em;
+}
+
+.ubb-header-status {
+    font-size: 0.72rem;
+    color: var(--ub-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 2px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+.ubb-header-status::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    background: var(--ub-gold);
+    border-radius: 50%;
+    flex-shrink: 0;
+    animation: ub-dot-pulse 2.4s ease-in-out infinite;
+}
+
+/* ── Messages Area ───────────────────────────────────────── */
+.ubb-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--ub-bg);
+    scrollbar-width: thin;
+    scrollbar-color: var(--ub-border) transparent;
+}
+
+.ubb-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ubb-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ubb-messages::-webkit-scrollbar-thumb {
+    background: var(--ub-border);
+    border-radius: 4px;
+}
+
+/* ── Message Bubbles ─────────────────────────────────────── */
+.ubb-msg {
+    display: flex;
+    flex-direction: column;
+    max-width: 84%;
+    animation: ub-msg-in 0.28s var(--ub-ease) both;
+}
+
+@keyframes ub-msg-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ubb-msg.user {
+    align-self: flex-end;
+    align-items: flex-end;
+}
+
+.ubb-msg.bot {
+    align-self: flex-start;
+    align-items: flex-start;
+}
+
+.ubb-bubble {
+    padding: 11px 14px;
+    border-radius: 14px;
+    font-size: 0.835rem;
+    line-height: 1.65;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: var(--ub-font);
+}
+
+/* Bot bubble — white card with gold border hint */
+.ubb-msg.bot .ubb-bubble {
+    background: var(--ub-panel);
+    color: var(--ub-text);
+    border: 1px solid var(--ub-gold-border);
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* User bubble — soft grey */
+.ubb-msg.user .ubb-bubble {
+    background: var(--ub-bubble-user);
+    color: var(--ub-text);
+    border: 1px solid var(--ub-border);
+    border-bottom-right-radius: 4px;
+}
+
+/* Inline formatting */
+.ubb-bubble strong {
+    color: #111;
+    font-weight: 600;
+}
+
+.ubb-bubble em {
+    color: var(--ub-muted);
+    font-style: italic;
+}
+
+/* Timestamp */
+.ubb-time {
+    font-size: 0.66rem;
+    color: #B0B0B0;
+    margin-top: 4px;
+    padding: 0 3px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+}
+
+/* ── Typing Indicator ─────────────────────────────────────── */
+.ubb-typing {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 11px 14px;
+    background: var(--ub-panel);
+    border: 1px solid var(--ub-gold-border);
+    border-radius: 14px;
+    border-bottom-left-radius: 4px;
+    width: fit-content;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+}
+
+.ubb-typing span {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ub-gold);
+    animation: ub-bounce 1.3s ease infinite;
+    opacity: 0.6;
+}
+
+.ubb-typing span:nth-child(2) {
+    animation-delay: 0.18s;
+}
+
+.ubb-typing span:nth-child(3) {
+    animation-delay: 0.36s;
+}
+
+@keyframes ub-bounce {
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+
+    30% {
+        transform: translateY(-5px);
+        opacity: 1;
+    }
+}
+
+/* ── Quick-Action Chips ───────────────────────────────────── */
+.ubb-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 10px 14px 6px;
+    border-top: 1px solid var(--ub-border);
+    background: var(--ub-panel);
+    flex-shrink: 0;
+}
+
+.ubb-chip {
+    background: var(--ub-panel);
+    border: 1px solid var(--ub-border);
+    color: var(--ub-muted);
+    font-size: 0.74rem;
+    padding: 5px 11px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: var(--ub-font);
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.ubb-chip:hover {
+    border-color: var(--ub-gold);
+    color: var(--ub-gold);
+    background: var(--ub-gold-light);
+}
+
+/* ── Input Area ───────────────────────────────────────────── */
+.ubb-input-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-top: 1px solid var(--ub-border);
+    background: var(--ub-panel);
+    flex-shrink: 0;
+}
+
+#urbanbot-input {
+    flex: 1;
+    background: var(--ub-bg);
+    border: 1px solid var(--ub-border);
+    border-radius: 24px;
+    padding: 10px 16px;
+    font-size: 0.835rem;
+    color: var(--ub-text);
+    font-family: var(--ub-font);
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    font-weight: 400;
+}
+
+#urbanbot-input::placeholder {
+    color: #B8B8B8;
+    font-weight: 400;
+}
+
+#urbanbot-input:focus {
+    border-color: var(--ub-gold);
+    box-shadow: 0 0 0 3px rgba(198, 168, 91, 0.1);
+}
+
+#urbanbot-send {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--ub-gold);
+    border: none;
+    color: #fff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    outline: none;
+    box-shadow: 0 2px 8px rgba(198, 168, 91, 0.3);
+}
+
+#urbanbot-send:hover {
+    background: #b8963f;
+    transform: scale(1.07);
+    box-shadow: 0 4px 14px rgba(198, 168, 91, 0.4);
+}
+
+#urbanbot-send:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+    :root {
+        --ub-panel-w: calc(100vw - 20px);
+        --ub-panel-h: 72vh;
+    }
+
+    #urbanbot-panel {
+        right: 10px;
+        bottom: 86px;
+        border-radius: 16px;
+    }
+
+    #urbanbot-trigger {
+        right: 16px;
+        bottom: 16px;
+        width: 50px;
+        height: 50px;
+    }
+}
